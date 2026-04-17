@@ -12,6 +12,10 @@ const navLinks = [
     link: "#skills",
   },
   {
+  name: "Certifications",
+  link: "#certifications",
+  },
+  {
     name: "Testimonials",
     link: "#testimonials",
   },
@@ -211,7 +215,8 @@ const expLogos = [
 const testimonials = [
   {
     name: "Esther Howard",
-    mentions: "@estherhoward",
+	role: "General Manager",
+    mentions: "Electra Surveying Engineering Services, Dubai",
     review:
       "I can’t say enough good things about Adrian. He was able to take our complex project requirements and turn them into a seamless, functional website. His problem-solving abilities are outstanding.",
     imgPath: "/images/client1.png",

@@ -8,7 +8,7 @@
 html,
 body {
   width: 100dvw;
-  overflow-x: hidden;
+  overflow-x: auto;
   background-color: black;
   color: white;
   scroll-behavior: smooth;
@@ -551,4 +551,63 @@ section {
 .hero-rotator .rw-current.rw-out{
   opacity: 0;
   transform: translate3d(0,0,0);
+}
+
+/* ── Custom Cursor ── */
+*, *::before, *::after {
+  cursor: none !important;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Default state: letter */
+.cursor-default-label {
+  font-size: 16px;
+  font-weight: 800;
+  color: #c8a97e;
+  font-family: "Mona Sans", sans-serif;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s ease;
+  opacity: 1;
+}
+
+/* Ring (hidden by default, shown on hover) */
+.cursor-ring {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #c8a97e;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Hover state */
+.custom-cursor.cursor-hover .cursor-default-label {
+  opacity: 0;
+}
+
+.custom-cursor.cursor-hover .cursor-ring {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* Desktop mode support for mobile */
+@media (min-width: 1024px) {
+  html, body {
+    min-width: 1200px;
+    overflow-x: auto;
+  }
 }

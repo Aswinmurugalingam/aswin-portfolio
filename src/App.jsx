@@ -11,32 +11,28 @@ import ShowcaseSection from "./sections/ShowcaseSection";
 import LogoShowcase from "./sections/LogoShowcase";
 import FeatureCards from "./sections/FeatureCards";
 import Navbar from "./components/NavBar";
+import CustomCursor from "./components/CustomCursor";
+import Certifications from "./sections/Certifications";
 
 export default function App() {
   useEffect(() => {
-    // Premium smooth scrolling (wheel/trackpad) with reduced-motion respect.
-    // Install: npm i lenis
     if (typeof window === "undefined") return;
+
+    const isMobile = window.innerWidth < 768;
 
     const prefersReducedMotion =
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (prefersReducedMotion) return;
-
-    // Avoid double-init during React StrictMode in dev
     if (window.__LENIS__) return;
 
     const lenis = new Lenis({
-      // "smoothWheel" gives the premium inertia feel
       smoothWheel: true,
-      // Keep touch natural on mobile (avoid rubbery feel)
-      smoothTouch: false,
-      // Tune these if you want more/less smoothing
+      smoothTouch: true, // ✅ FIX: enable smooth touch
       wheelMultiplier: 0.9,
-      touchMultiplier: 1.0,
-      // Easing curve for consistent feel
-      lerp: 0.08,
+      touchMultiplier: isMobile ? 1.2 : 1.0, // ✅ better mobile feel
+      lerp: isMobile ? 0.12 : 0.08, // ✅ smoother mobile
     });
 
     window.__LENIS__ = lenis;
@@ -48,7 +44,6 @@ export default function App() {
     };
     rafId = requestAnimationFrame(raf);
 
-    // Minimal CSS needed for Lenis to behave correctly
     const styleId = "lenis-css";
     if (!document.getElementById(styleId)) {
       const style = document.createElement("style");
@@ -62,7 +57,6 @@ export default function App() {
       document.head.appendChild(style);
     }
 
-    // Lenis adds classes to <html> automatically, but some setups benefit from this:
     document.documentElement.classList.add("lenis");
 
     return () => {
@@ -74,17 +68,22 @@ export default function App() {
   }, []);
 
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <ShowcaseSection />
-      <LogoShowcase />
-      <FeatureCards />
-      <Experience />
-      <TechStack />
-      <Testimonials />
-      <Contact />
-      <Footer />
-    </>
+    <div className="overflow-x-auto">
+      {/* ✅ Desktop scroll wrapper */}
+      <div className="min-w-[1200px]">
+        <CustomCursor />
+        <Navbar />
+        <Hero />
+        <ShowcaseSection />
+        <LogoShowcase />
+        <FeatureCards />
+        <Experience />
+        <TechStack />
+        <Certifications />
+        <Testimonials />
+        <Contact />
+        <Footer />
+      </div>
+    </div>
   );
 }

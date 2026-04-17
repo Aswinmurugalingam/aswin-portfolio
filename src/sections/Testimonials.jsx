@@ -14,15 +14,36 @@ const Testimonials = () => {
         <div className="lg:columns-3 md:columns-2 columns-1 mt-16">
           {testimonials.map((testimonial, index) => (
             <GlowCard card={testimonial} key={index} index={index}>
-              <div className="flex items-center gap-3">
-                <div>
-                  <img src={testimonial.imgPath} alt="" />
+              
+              {/* PROFILE SECTION */}
+              <div className="flex items-center gap-4 mt-4">
+
+                {/* IMAGE (INCREASED SIZE) */}
+                <img
+                  src={testimonial.imgPath}
+                  alt=""
+                  className="w-14 h-14 rounded-full object-cover"
+                />
+
+                {/* TEXT */}
+                <div className="flex flex-col leading-tight">
+                  <p className="font-bold text-white text-[15px]">
+                    {testimonial.name}
+                  </p>
+
+                  {/* DESIGNATION */}
+                  <p className="text-white-50 text-[13px]">
+                    {testimonial.role || testimonial.designation}
+                  </p>
+
+                  {/* COMPANY */}
+                  <p className="text-white-50 text-[13px]">
+                    {testimonial.company || testimonial.mentions}
+                  </p>
                 </div>
-                <div>
-                  <p className="font-bold">{testimonial.name}</p>
-                  <p className="text-white-50">{testimonial.mentions}</p>
-                </div>
+
               </div>
+
             </GlowCard>
           ))}
         </div>

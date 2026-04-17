@@ -60,7 +60,7 @@ const ComputerModel = () => {
   );
 };
 
-const ComputersCanvas = () => {
+const ComputersCanvas = ({ isMobile }) => {
   const controlsRef = useRef(null);
 
   useEffect(() => {
@@ -71,42 +71,38 @@ const ComputersCanvas = () => {
 
   return (
     <Canvas
-      shadows
-      dpr={[1, 2]}
-      gl={{ preserveDrawingBuffer: true, antialias: true, alpha: true }}
-      camera={{ position: [12, 3, 12], fov: 30, near: 0.1, far: 200 }}
+      frameloop={isMobile ? "demand" : "always"} // ✅ BIG FIX
+      dpr={isMobile ? 1 : 2} // ✅ reduce mobile load
+      shadows={!isMobile} // ✅ disable shadows on mobile
+      gl={{ preserveDrawingBuffer: true, antialias: !isMobile, alpha: true }}
+      camera={{ position: [12, 3, 12], fov: 30 }}
       style={{ pointerEvents: "auto", background: "transparent" }}
       onCreated={({ gl }) => {
-        // Make renderer background transparent so CodeRain can render behind
         gl.setClearColor(0x000000, 0);
       }}
-
     >
       <Suspense fallback={null}>
-        <hemisphereLight intensity={0.5} groundColor="black" />
-        <directionalLight intensity={0.9} position={[6, 8, 6]} />
-        <pointLight intensity={0.5} position={[-4, 3, 2]} />
+
+        {/* LIGHTS (optimized) */}
+        <hemisphereLight intensity={isMobile ? 0.3 : 0.5} />
+        {!isMobile && (
+          <directionalLight intensity={0.9} position={[6, 8, 6]} />
+        )}
 
         <OrbitControls
           ref={controlsRef}
-          makeDefault
-          enableRotate
           enableZoom={false}
-          zoomSpeed={0.9}
           enablePan={false}
           enableDamping
-          dampingFactor={0.05}
-          rotateSpeed={2.2}
-          minPolarAngle={Math.PI / 2.6}
-          maxPolarAngle={Math.PI / 2}
-          minDistance={6.5}
-          maxDistance={16}
+          dampingFactor={0.08}
+          rotateSpeed={isMobile ? 1.2 : 2.2} // smoother mobile
         />
 
         <ComputerModel />
+
       </Suspense>
 
-      <Preload all />
+      {!isMobile && <Preload all />}
     </Canvas>
   );
 };
