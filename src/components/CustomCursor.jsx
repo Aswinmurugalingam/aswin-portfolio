@@ -72,7 +72,7 @@ const CustomCursor = () => {
     <div
       ref={cursorRef}
       className="custom-cursor"
-      style={{ opacity: 0, transition: "opacity 0.15s ease", pointerEvents: "none" }}
+      style={{ opacity: 0, pointerEvents: "none" }}
     >
       <span className="cursor-default-label">AM</span>
       <span className="cursor-ring" />

@@ -18,7 +18,6 @@ export default function App() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Disable Lenis entirely on touch devices — native scroll is smoother
     const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
     if (isTouch) return;
 
@@ -31,8 +30,8 @@ export default function App() {
     const lenis = new Lenis({
       smoothWheel: true,
       smoothTouch: false,
-      wheelMultiplier: 0.9,
-      lerp: 0.08,
+      wheelMultiplier: 1.4,  // faster scroll distance per wheel tick
+      lerp: 0.18,            // faster easing catch-up
     });
 
     window.__LENIS__ = lenis;

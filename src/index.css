@@ -458,6 +458,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity 0.15s ease; /* position has zero lag, only opacity fades */
 }
 
 .cursor-default-label {
@@ -514,7 +515,7 @@ section {
   display: flex;
   gap: 24px;
   will-change: transform;
-  /* no transition — rAF handles smoothness */
+  transform: translateZ(0); /* force GPU layer */
 }
 
 /* Each card: fixed width so exactly 3 fit on desktop */
@@ -572,7 +573,7 @@ section {
   opacity: 1;
 }
 
-/* Hover popup bubble — rendered via React portal into body, so position:fixed */
+/* Hover popup bubble — rendered as a shared DOM node in body, position:fixed */
 .testimonial-popup {
   position: fixed;
   z-index: 99999;
@@ -584,12 +585,7 @@ section {
   width: 240px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(10px);
-  animation: popupFadeIn 0.15s ease forwards;
-}
-
-@keyframes popupFadeIn {
-  from { opacity: 0; transform: translateY(6px) scale(0.95); }
-  to   { opacity: 1; transform: translateY(0)   scale(1); }
+  transform: translateZ(0);
 }
 
 /* Mobile: 1 card at a time */
