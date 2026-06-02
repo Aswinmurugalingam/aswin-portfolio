@@ -119,7 +119,7 @@ const expCards = [
     logoPath: "/images/engineer.png",
     title: "IT Administrator",
     company: "Electra Surveying Engineering Services, Dubai, UAE",
-    date: "July 2024 - Present",
+    date: "July 2024 - April 2026",
     responsibilities: [
       "Managed day-to-day IT infrastructure including workstations, printers, and network devices across office and field operations.",
       "Configured and maintained FortiGate firewall, LAN/WAN networks, and secure connectivity for enterprise environments.",
