@@ -238,6 +238,13 @@ const testimonials = [
     review: "Aswin is a dependable IT professional with excellent technical knowledge and a strong work ethic. He approaches every challenge with confidence and professionalism. His commitment to quality and continuous learning makes him a valuable asset to any team.",
     imgPath: "/images/client10.png",
   },
+    {
+    name: "Mr. Naveen",
+    role: "Cheif Survey Engineer",
+    mentions: "Electra Surveying Engineering Services, Dubai",
+    review: "Aswin plays a crucial role in ensuring the smooth operation of our IT infrastructure. His expertise in system administration, networking, and user support helps maintain a productive work environment. He is proactive, knowledgeable, and always willing to go the extra mile to support the team.",
+    imgPath: "/images/client11.png",
+  },
 ];
 
 const socialImgs = [
