@@ -3,38 +3,37 @@ import { useEffect, useRef } from "react";
 const CustomCursor = () => {
   const cursorRef = useRef(null);
 
-  useEffect(() => {
-    const cursor = cursorRef.current;
+  // Detect touch device — render nothing on touch screens
+  const isTouch =
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
-    // 🔹 Move cursor
+  useEffect(() => {
+    if (isTouch) return;
+
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
     const moveCursor = (e) => {
       cursor.style.left = e.clientX + "px";
       cursor.style.top = e.clientY + "px";
-      cursor.style.opacity = "1"; // always show when moving
+      cursor.style.opacity = "1";
     };
 
-    // 🔹 Hover detection (for clickable elements)
     const handleMouseOver = (e) => {
       const target = e.target.closest(
         'a, button, [role="button"], input, textarea, select, label, .cta-wrapper, .cta-button, .group'
       );
-
-      if (target) {
-        cursor.classList.add("cursor-hover");
-      }
+      if (target) cursor.classList.add("cursor-hover");
     };
 
     const handleMouseOut = (e) => {
       const target = e.target.closest(
         'a, button, [role="button"], input, textarea, select, label, .cta-wrapper, .cta-button, .group'
       );
-
-      if (target) {
-        cursor.classList.remove("cursor-hover");
-      }
+      if (target) cursor.classList.remove("cursor-hover");
     };
 
-    // 🔹 Detect leaving browser window (ALL SIDES — FINAL FIX)
     const handleMouseLeaveWindow = (e) => {
       if (
         e.clientX <= 0 ||
@@ -46,50 +45,34 @@ const CustomCursor = () => {
       }
     };
 
-    // 🔹 Detect re-entering window
-    const handleMouseEnterWindow = () => {
-      cursor.style.opacity = "1";
-    };
+    const handleWindowBlur = () => { cursor.style.opacity = "0"; };
+    const handleWindowFocus = () => { cursor.style.opacity = "1"; };
 
-    // 🔹 Fallback (tab switch / window inactive)
-    const handleWindowBlur = () => {
-      cursor.style.opacity = "0";
-    };
-
-    const handleWindowFocus = () => {
-      cursor.style.opacity = "1";
-    };
-
-    // 🔹 Events
     window.addEventListener("mousemove", moveCursor);
     document.addEventListener("mouseover", handleMouseOver);
     document.addEventListener("mouseout", handleMouseOut);
     document.addEventListener("mouseleave", handleMouseLeaveWindow);
-    document.addEventListener("mouseenter", handleMouseEnterWindow);
+    document.addEventListener("mouseenter", () => { cursor.style.opacity = "1"; });
     window.addEventListener("blur", handleWindowBlur);
     window.addEventListener("focus", handleWindowFocus);
 
-    // 🔹 Cleanup
     return () => {
       window.removeEventListener("mousemove", moveCursor);
       document.removeEventListener("mouseover", handleMouseOver);
       document.removeEventListener("mouseout", handleMouseOut);
       document.removeEventListener("mouseleave", handleMouseLeaveWindow);
-      document.removeEventListener("mouseenter", handleMouseEnterWindow);
       window.removeEventListener("blur", handleWindowBlur);
       window.removeEventListener("focus", handleWindowFocus);
     };
-  }, []);
+  }, [isTouch]);
+
+  if (isTouch) return null;
 
   return (
     <div
       ref={cursorRef}
       className="custom-cursor"
-      style={{
-        opacity: 1,
-        transition: "opacity 0.15s ease",
-        pointerEvents: "none", // 🔥 IMPORTANT
-      }}
+      style={{ opacity: 0, transition: "opacity 0.15s ease", pointerEvents: "none" }}
     >
       <span className="cursor-default-label">AM</span>
       <span className="cursor-ring" />

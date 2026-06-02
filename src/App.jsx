@@ -18,21 +18,21 @@ export default function App() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const isMobile = window.innerWidth < 768;
+    // Disable Lenis entirely on touch devices — native scroll is smoother
+    const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    if (isTouch) return;
 
     const prefersReducedMotion =
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
     if (prefersReducedMotion) return;
     if (window.__LENIS__) return;
 
     const lenis = new Lenis({
       smoothWheel: true,
-      smoothTouch: true, // ✅ FIX: enable smooth touch
+      smoothTouch: false,
       wheelMultiplier: 0.9,
-      touchMultiplier: isMobile ? 1.2 : 1.0, // ✅ better mobile feel
-      lerp: isMobile ? 0.12 : 0.08, // ✅ smoother mobile
+      lerp: 0.08,
     });
 
     window.__LENIS__ = lenis;
@@ -68,22 +68,19 @@ export default function App() {
   }, []);
 
   return (
-    <div className="overflow-x-auto">
-      {/* ✅ Desktop scroll wrapper */}
-      <div className="min-w-[1200px]">
-        <CustomCursor />
-        <Navbar />
-        <Hero />
-        <ShowcaseSection />
-        <LogoShowcase />
-        <FeatureCards />
-        <Experience />
-        <TechStack />
-        <Certifications />
-        <Testimonials />
-        <Contact />
-        <Footer />
-      </div>
+    <div className="w-full overflow-x-hidden">
+      <CustomCursor />
+      <Navbar />
+      <Hero />
+      <ShowcaseSection />
+      <LogoShowcase />
+      <FeatureCards />
+      <Experience />
+      <TechStack />
+      <Certifications />
+      <Testimonials />
+      <Contact />
+      <Footer />
     </div>
   );
 }

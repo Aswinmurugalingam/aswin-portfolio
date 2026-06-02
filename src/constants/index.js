@@ -214,47 +214,76 @@ const expLogos = [
 
 const testimonials = [
   {
-    name: "Esther Howard",
+    name: "Ms. Ljubica Bogdanovska",
 	role: "General Manager",
     mentions: "Electra Surveying Engineering Services, Dubai",
     review:
-      "I can’t say enough good things about Adrian. He was able to take our complex project requirements and turn them into a seamless, functional website. His problem-solving abilities are outstanding.",
-    imgPath: "/images/client1.png",
+       "Aswin consistently ensures our IT infrastructure runs smoothly and securely. From workstation deployments to network management, his proactive approach minimizes downtime and keeps our operations efficient. His technical expertise and reliability make him a valuable asset to our organization.",    
+	imgPath: "/images/client1.png",
   },
   {
-    name: "Wade Warren",
-    mentions: "@wadewarren",
+    name: "Mr. Bervin",
+	role: "Graphic Designer",
+    mentions: "Sri Saastha Designs, Nagercoil",
     review:
-      "Working with Adrian was a fantastic experience. He transformed our outdated website into a modern, user-friendly platform. His attention to detail and commitment to quality are unmatched. Highly recommend him for any web dev projects.",
-    imgPath: "/images/client3.png",
-  },
-  {
-    name: "Guy Hawkins",
-    mentions: "@guyhawkins",
-    review:
-      "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-    imgPath: "/images/client2.png",
-  },
-  {
-    name: "Marvin McKinney",
-    mentions: "@marvinmckinney",
-    review:
-      "Adrian was a pleasure to work with. He turned our outdated website into a fresh, intuitive platform that’s both modern and easy to navigate. Fantastic work overall.",
-    imgPath: "/images/client5.png",
-  },
-  {
-    name: "Floyd Miles",
-    mentions: "@floydmiles",
-    review:
-      "Adrian’s expertise in web development is truly impressive. He delivered a robust and scalable solution for our e-commerce site, and our online sales have significantly increased since the launch. He’s a true professional!",
+      "I've known Aswin for several years, and one thing that always stands out is his dedication to learning and improving. Whether it's networking, system administration, or new technologies, he approaches every challenge with determination and a strong desire to find the best solution.",
     imgPath: "/images/client4.png",
   },
   {
-    name: "Albert Flores",
-    mentions: "@albertflores",
+    name: "Mr. Ranjith",
+	role: "Site Supervisor",
+    mentions: "Strong Steels Lifts Maint.Co.L.L.C, Sharjah",
     review:
-      "Adrian was a pleasure to work with. He understood our requirements perfectly and delivered a website that exceeded our expectations. His skills in both frontend and backend dev are top-notch.",
+      "Aswin has always been the person I turn to for technical advice. Whether it's networking, system troubleshooting, or software recommendations, he approaches every problem with confidence and finds practical solutions. His knowledge and willingness to help make him stand out.",
+    imgPath: "/images/client7.png",
+  },
+    {
+    name: "Mr. Anas Adnan Muhammad",
+	role: "Cheif Executive Officer",
+    mentions: "Electra Surveying Engineering Services, Dubai",
+    review:
+      "Aswin consistently delivers reliable IT solutions that improve operational efficiency. From software deployment and asset management to troubleshooting critical issues, he approaches every task with professionalism and attention to detail. His technical knowledge and problem-solving abilities make him an exceptional IT Administrator.",
+    imgPath: "/images/client2.png",
+  },
+  {
+    name: "Mr. Akilan",
+	role: "Site Coordinator/Manager",
+    mentions: "PGM Electro Private Limited, Nagercoil",
+    review:
+      "Aswin is someone people naturally rely on when they face technical problems. He is patient, knowledgeable, and always willing to help others understand complex concepts. His passion for technology is reflected in everything he does.",
+    imgPath: "/images/client5.png",
+  },
+  {
+    name: "Mr. Aravinth",
+	role: "Product Manager",
+    mentions: "HDB Financial Services, Nagercoil",
+    review:
+      "Aswin combines technical knowledge with a practical approach to solving real-world challenges. He is always eager to learn, adapt, and improve. His professionalism and positive attitude make him an excellent person to work with.",
+    imgPath: "/images/client8.png",
+  },
+    {
+    name: "Mr. Sooraj Arnayil",
+	role: "Marine Geophysical Manager",
+    mentions: "Electra Surveying Engineering Services, Dubai",
+    review:
+      "Working with Aswin has been a great experience. He successfully supports multiple departments while ensuring systems remain secure, organized, and up to date. His ability to manage complex IT requirements while providing excellent user support has contributed significantly to our project's success.",
+    imgPath: "/images/client3.png",
+  },
+  {
+    name: "Mr. Ajay",
+	role: "Founder",
+    mentions: "Vaishu Costume Works & Design",
+    review:
+      "What I admire most about Aswin is his consistency and work ethic. He is highly organized, dependable, and always focused on achieving results. Whether managing IT infrastructure or working on personal projects, he gives every task his full attention and commitment.",
     imgPath: "/images/client6.png",
+  },
+    {
+    name: "Mr. Akash",
+	role: "Central Industrial Security Force",
+    mentions: "Central Government of India",
+    review:
+      "Aswin is one of the most dependable people I know. He approaches challenges methodically and never gives up until he finds the right solution. His passion for technology, combined with his strong work ethic, has helped him build an impressive career in IT administration.",
+    imgPath: "/images/client9.png",
   },
 ];
 
@@ -272,7 +301,7 @@ const socialImgs = [
   {
     name: "x",
     imgPath: "/images/x.png",
-    link: "https://x.com/YOUR_USERNAME",
+    link: "https://x.com/MPAswin10",
   },
   {
     name: "linkedin",
