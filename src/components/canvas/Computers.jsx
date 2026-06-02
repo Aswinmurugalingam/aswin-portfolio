@@ -1,52 +1,55 @@
-import React, { Suspense, useEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-// Rotates any meshes/objects in the GLTF whose name looks like a fan/blades.
-// If your model uses different names, tell me the node names and I’ll tighten the match.
 const FAN_NAME_RE = /(fan|blade|prop|cooler)/i;
+
+const useCanvasVisibility = (rootMargin = "240px") => {
+  const containerRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { rootMargin }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [rootMargin]);
+
+  return [containerRef, isVisible];
+};
 
 const ComputerModel = () => {
   const { scene } = useGLTF("/desktop_pc/scene.gltf");
-
-  // Collect likely fan objects once the scene is available
   const fanObjectsRef = useRef([]);
 
   useEffect(() => {
     if (!scene) return;
 
-    // Ensure transparent canvas can show background layers behind the 3D model
     scene.background = null;
 
-    // Find objects that look like fans by name
     const fans = [];
     scene.traverse((obj) => {
-      if (!obj) return;
-      if (obj.name && FAN_NAME_RE.test(obj.name)) {
+      if (obj?.name && FAN_NAME_RE.test(obj.name)) {
         fans.push(obj);
       }
     });
 
     fanObjectsRef.current = fans;
-
-    // (Optional) Debug: uncomment to print node names in console, then share with me
-    // console.log("GLTF nodes:", scene);
-    // console.log("Detected fan-like nodes:", fans.map((f) => f.name));
-
   }, [scene]);
 
-  // Spin the detected fans
   useFrame((_, delta) => {
     const fans = fanObjectsRef.current;
-    if (!fans || fans.length === 0) return;
+    if (!fans.length) return;
 
-    // radians per second (increase for faster spin)
-    const speed = 14;
-
-    for (const f of fans) {
-      // Try Z axis first (common for fan blades in GLTF exports)
-      f.rotation.z += delta * speed;
+    for (const fan of fans) {
+      fan.rotation.z += delta * 14;
     }
   });
 
@@ -62,6 +65,7 @@ const ComputerModel = () => {
 
 const ComputersCanvas = ({ isMobile }) => {
   const controlsRef = useRef(null);
+  const [containerRef, isVisible] = useCanvasVisibility();
 
   useEffect(() => {
     if (!controlsRef.current) return;
@@ -70,141 +74,48 @@ const ComputersCanvas = ({ isMobile }) => {
   }, []);
 
   return (
-    <Canvas
-      frameloop={isMobile ? "demand" : "always"} // ✅ BIG FIX
-      dpr={isMobile ? 1 : 2} // ✅ reduce mobile load
-      shadows={!isMobile} // ✅ disable shadows on mobile
-      gl={{ preserveDrawingBuffer: true, antialias: !isMobile, alpha: true }}
-      camera={{ position: [12, 3, 12], fov: 30 }}
-      style={{ pointerEvents: "auto", background: "transparent" }}
-      onCreated={({ gl }) => {
-        gl.setClearColor(0x000000, 0);
-      }}
-    >
-      <Suspense fallback={null}>
+    <div ref={containerRef} className="w-full h-full">
+      <Canvas
+        frameloop={isVisible && !isMobile ? "always" : "demand"}
+        dpr={isMobile ? 1 : [1, 1.5]}
+        shadows={false}
+        gl={{
+          preserveDrawingBuffer: false,
+          antialias: !isMobile,
+          alpha: true,
+          powerPreference: "high-performance",
+        }}
+        camera={{ position: [12, 3, 12], fov: 30 }}
+        performance={{ min: 0.6 }}
+        style={{ pointerEvents: "auto", background: "transparent" }}
+        onCreated={({ gl }) => {
+          gl.setClearColor(0x000000, 0);
+        }}
+      >
+        <Suspense fallback={null}>
+          <hemisphereLight intensity={isMobile ? 0.3 : 0.5} />
+          {!isMobile && (
+            <directionalLight intensity={0.9} position={[6, 8, 6]} />
+          )}
 
-        {/* LIGHTS (optimized) */}
-        <hemisphereLight intensity={isMobile ? 0.3 : 0.5} />
-        {!isMobile && (
-          <directionalLight intensity={0.9} position={[6, 8, 6]} />
-        )}
+          <OrbitControls
+            ref={controlsRef}
+            enableZoom={false}
+            enablePan={false}
+            enableDamping={isVisible && !isMobile}
+            dampingFactor={0.08}
+            rotateSpeed={isMobile ? 1.2 : 2.2}
+          />
 
-        <OrbitControls
-          ref={controlsRef}
-          enableZoom={false}
-          enablePan={false}
-          enableDamping
-          dampingFactor={0.08}
-          rotateSpeed={isMobile ? 1.2 : 2.2} // smoother mobile
-        />
+          <ComputerModel />
+        </Suspense>
 
-        <ComputerModel />
-
-      </Suspense>
-
-      {!isMobile && <Preload all />}
-    </Canvas>
+        {!isMobile && isVisible && <Preload all />}
+      </Canvas>
+    </div>
   );
 };
 
 export default ComputersCanvas;
 
 useGLTF.preload("/desktop_pc/scene.gltf");
-
-
-/* =========================
-   🔧 ADVANCED VISUAL UPGRADES
-   Added WITHOUT removing existing logic
-   ========================= */
-
-import { useState } from "react";
-import { useThree } from "@react-three/fiber";
-
-// ===== FAN + RGB + GPU + SCREEN ANIMATION HOOK =====
-export const useWorkstationFX = (scene) => {
-  const bladeRefs = [];
-  const gpuFanRefs = [];
-  const rgbMaterials = [];
-  const screenMeshes = [];
-
-  // Detect parts once
-  scene.traverse((obj) => {
-    if (!obj.name) return;
-
-    const n = obj.name.toLowerCase();
-
-    // Fan blades
-    if (/(blade|fan_blade|rotor|prop)/.test(n)) {
-      bladeRefs.push(obj);
-    }
-
-    // GPU fans
-    if (/(gpu|graphic).*?(blade|fan)/.test(n)) {
-      gpuFanRefs.push(obj);
-    }
-
-    // RGB materials
-    if (obj.material && obj.material.emissive) {
-      rgbMaterials.push(obj.material);
-    }
-
-    // Monitor screen
-    if (/(screen|monitor|display)/.test(n)) {
-      screenMeshes.push(obj);
-    }
-  });
-
-  return { bladeRefs, gpuFanRefs, rgbMaterials, screenMeshes };
-};
-
-// ===== GLOBAL FAN SPEED CONTROLLER =====
-let fanSpeed = 8;
-let targetFanSpeed = 8;
-
-export const setFanSpeedBoost = (boost) => {
-  targetFanSpeed = boost;
-};
-
-// ===== FRAME LOOP FX =====
-export const applyWorkstationFrameFX = (
-  delta,
-  bladeRefs,
-  gpuFanRefs,
-  rgbMaterials,
-  screenMeshes
-) => {
-  // Smooth fan speed lerp
-  fanSpeed += (targetFanSpeed - fanSpeed) * 0.05;
-
-  // Spin cabinet fans
-  bladeRefs.forEach((b) => {
-    b.rotation.z += delta * fanSpeed;
-  });
-
-  // Spin GPU fans
-  gpuFanRefs.forEach((b) => {
-    b.rotation.z += delta * (fanSpeed + 4);
-  });
-
-  // RGB glow pulse
-  const t = performance.now() * 0.002;
-  rgbMaterials.forEach((m) => {
-    if (!m.emissiveIntensity) m.emissiveIntensity = 1;
-    m.emissiveIntensity = 1.5 + Math.sin(t) * 0.5;
-  });
-
-  // Screen scroll effect (texture offset)
-  screenMeshes.forEach((s) => {
-    if (s.material?.map) {
-      s.material.map.offset.y -= delta * 0.2;
-    }
-  });
-};
-
-// ===== SCROLL + HOVER BOOST =====
-if (typeof window !== "undefined") {
-  window.addEventListener("scroll", () => {
-    const y = window.scrollY;
-    targetFanSpeed = 8 + Math.min(y / 200, 10);
-  });
-}

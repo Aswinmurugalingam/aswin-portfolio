@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 
 const CustomCursor = () => {
   const cursorRef = useRef(null);
+  const frameRef = useRef(0);
+  const pointerRef = useRef({ x: 0, y: 0 });
 
   // Detect touch device — render nothing on touch screens
   const isTouch =
@@ -15,9 +17,16 @@ const CustomCursor = () => {
     if (!cursor) return;
 
     const moveCursor = (e) => {
-      cursor.style.left = e.clientX + "px";
-      cursor.style.top = e.clientY + "px";
-      cursor.style.opacity = "1";
+      pointerRef.current = { x: e.clientX, y: e.clientY };
+
+      if (frameRef.current) return;
+
+      frameRef.current = requestAnimationFrame(() => {
+        frameRef.current = 0;
+        const { x, y } = pointerRef.current;
+        cursor.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+        cursor.style.opacity = "1";
+      });
     };
 
     const handleMouseOver = (e) => {
@@ -57,6 +66,7 @@ const CustomCursor = () => {
     window.addEventListener("focus", handleWindowFocus);
 
     return () => {
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
       window.removeEventListener("mousemove", moveCursor);
       document.removeEventListener("mouseover", handleMouseOver);
       document.removeEventListener("mouseout", handleMouseOut);

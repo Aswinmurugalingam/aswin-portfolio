@@ -15,6 +15,8 @@ const certificates = [
   { image: "/certificates/ccna.jpg" },
 ];
 
+const MotionImage = motion.img;
+
 const Certifications = () => {
   const [index, setIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
@@ -50,7 +52,7 @@ const Certifications = () => {
           {/* Slides */}
           <div className="relative flex items-center justify-center w-full h-full px-10">
             {certificates.map((cert, i) => (
-              <motion.img
+              <MotionImage
                 key={i}
                 src={cert.image}
                 alt="certificate"

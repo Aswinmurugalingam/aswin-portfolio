@@ -1,5 +1,4 @@
 import { useRef, useEffect, useCallback } from "react";
-import { createPortal } from "react-dom";
 import { testimonials } from "../constants";
 import TitleHeader from "../components/TitleHeader";
 
@@ -108,17 +107,32 @@ const Testimonials = () => {
   const animFrameRef = useRef(null);
   const posRef = useRef(0);
   const pausedRef = useRef(false);
+  const visibleRef = useRef(false);
   const SPEED = 0.5;
 
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
 
+    const prefersReducedMotion =
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      return () => hidePopup();
+    }
+
+    const stopAnimation = () => {
+      if (animFrameRef.current) {
+        cancelAnimationFrame(animFrameRef.current);
+        animFrameRef.current = null;
+      }
+    };
+
     const animate = () => {
       if (!pausedRef.current) {
         posRef.current += SPEED;
         const singleSetWidth = track.scrollWidth / 3;
-        if (posRef.current >= singleSetWidth) {
+        if (singleSetWidth > 0 && posRef.current >= singleSetWidth) {
           posRef.current = 0;
         }
         track.style.transform = `translateX(-${posRef.current}px)`;
@@ -126,11 +140,37 @@ const Testimonials = () => {
       animFrameRef.current = requestAnimationFrame(animate);
     };
 
-    animFrameRef.current = requestAnimationFrame(animate);
+    const startAnimation = () => {
+      if (!animFrameRef.current) {
+        animFrameRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    let observer;
+    const viewport = track.parentElement;
+
+    if (viewport && typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          visibleRef.current = entry.isIntersecting;
+          if (visibleRef.current) {
+            startAnimation();
+          } else {
+            stopAnimation();
+          }
+        },
+        { rootMargin: "220px" }
+      );
+      observer.observe(viewport);
+    } else {
+      visibleRef.current = true;
+      startAnimation();
+    }
 
     // Cleanup shared popup node on unmount
     return () => {
-      cancelAnimationFrame(animFrameRef.current);
+      observer?.disconnect();
+      stopAnimation();
       hidePopup();
     };
   }, []);
