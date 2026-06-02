@@ -285,6 +285,14 @@ const testimonials = [
       "Aswin is one of the most dependable people I know. He approaches challenges methodically and never gives up until he finds the right solution. His passion for technology, combined with his strong work ethic, has helped him build an impressive career in IT administration.",
     imgPath: "/images/client9.png",
   },
+      {
+    name: "Mr. Ajin",
+	role: "Advocate",
+    mentions: "Bar Council Of Tamilnadu",
+    review:
+      "Aswin is a dependable IT professional with excellent technical knowledge and a strong work ethic. He approaches every challenge with confidence and professionalism. His commitment to quality and continuous learning makes him a valuable asset to any team.",
+    imgPath: "/images/client10.png",
+  },
 ];
 
 const socialImgs = [

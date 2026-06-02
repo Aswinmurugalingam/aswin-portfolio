@@ -502,3 +502,108 @@ section {
 .hero-rotator { display: inline-flex; align-items: center; }
 .hero-rotator .wrapper { animation: none !important; transform: none !important; }
 .hero-rotator .slide { animation: none !important; transition: none !important; transform: none !important; }
+
+/* ── Testimonials Carousel ── */
+.testimonial-carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.testimonial-track {
+  display: flex;
+  gap: 24px;
+  will-change: transform;
+  /* no transition — rAF handles smoothness */
+}
+
+/* Each card: fixed width so exactly 3 fit on desktop */
+.testimonial-slide-card {
+  --start: 0;
+  flex: 0 0 calc((100vw - 80px - 48px) / 3); /* (viewport - section-px - 2 gaps) / 3 */
+  min-width: 0;
+  max-width: 420px;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 40;
+  overflow: visible; /* allow popup to escape */
+  border: 1px solid #1c1c21;
+  background-color: #0e0e10;
+  border-radius: 12px;
+  padding: 2rem;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-slide-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(98, 224, 255, 0.12);
+}
+
+/* Glow border on hover (same as .card::before) */
+.testimonial-slide-card::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: var(--gradient);
+  background-attachment: fixed;
+  mask: linear-gradient(#0000, #0000),
+    conic-gradient(
+      from calc((var(--start) - 15) * 1deg),
+      #ffffff1f 0deg,
+      white,
+      #ffffff00 100deg
+    );
+  mask-composite: intersect;
+  mask-clip: padding-box, border-box;
+  opacity: 0;
+  transition: 0.5s ease;
+  pointer-events: none;
+}
+
+.testimonial-slide-card:hover::before {
+  opacity: 1;
+}
+
+/* Hover popup bubble — rendered via React portal into body, so position:fixed */
+.testimonial-popup {
+  position: fixed;
+  z-index: 99999;
+  pointer-events: none;
+  background: rgba(20, 20, 30, 0.96);
+  border: 1px solid rgba(98, 224, 255, 0.25);
+  border-radius: 10px;
+  padding: 12px 14px;
+  width: 240px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  animation: popupFadeIn 0.15s ease forwards;
+}
+
+@keyframes popupFadeIn {
+  from { opacity: 0; transform: translateY(6px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+/* Mobile: 1 card at a time */
+@media (max-width: 767px) {
+  .testimonial-slide-card {
+    flex: 0 0 85vw;
+    max-width: 85vw;
+  }
+}
+
+/* Tablet: 2 cards */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .testimonial-slide-card {
+    flex: 0 0 calc((100vw - 80px - 24px) / 2);
+    max-width: 500px;
+  }
+}
