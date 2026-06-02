@@ -40,39 +40,17 @@ const counterItems = [
 ];
 
 const logoIconsList = [
-  {
-    imgPath: "/images/logos/company-logo-1.png",
-  },
-  {
-    imgPath: "/images/logos/company-logo-2.png",
-  },
-  {
-    imgPath: "/images/logos/company-logo-3.png",
-  },
-  {
-    imgPath: "/images/logos/company-logo-4.png",
-  },
-  {
-    imgPath: "/images/logos/company-logo-5.png",
-  },
-  {
-    imgPath: "/images/logos/company-logo-6.png",
-  },
-  {
-    imgPath: "/images/logos/company-logo-7.png",
-  },
-  {
-    imgPath: "/images/logos/company-logo-8.png",
-  },
-  {
-    imgPath: "/images/logos/company-logo-9.png",
-  },
-  {
-    imgPath: "/images/logos/company-logo-10.png",
-  },
-  {
-    imgPath: "/images/logos/company-logo-11.png",
-  },
+  { imgPath: "/images/logos/company-logo-1.png" },
+  { imgPath: "/images/logos/company-logo-2.png" },
+  { imgPath: "/images/logos/company-logo-3.png" },
+  { imgPath: "/images/logos/company-logo-4.png" },
+  { imgPath: "/images/logos/company-logo-5.png" },
+  { imgPath: "/images/logos/company-logo-6.png" },
+  { imgPath: "/images/logos/company-logo-7.png" },
+  { imgPath: "/images/logos/company-logo-8.png" },
+  { imgPath: "/images/logos/company-logo-9.png" },
+  { imgPath: "/images/logos/company-logo-10.png" },
+  { imgPath: "/images/logos/company-logo-11.png" },
 ];
 
 const abilities = [
@@ -94,26 +72,11 @@ const abilities = [
 ];
 
 const techStackImgs = [
-  {
-    name: "React Developer",
-    imgPath: "/images/logos/operation.png",
-  },
-  {
-    name: "Python Developer",
-    imgPath: "/images/logos/python.svg",
-  },
-  {
-    name: "Backend Developer",
-    imgPath: "/images/logos/node.png",
-  },
-  {
-    name: "Interactive Developer",
-    imgPath: "/images/logos/three.png",
-  },
-  {
-    name: "Project Manager",
-    imgPath: "/images/logos/git.svg",
-  },
+  { name: "React Developer", imgPath: "/images/logos/operation.png" },
+  { name: "Python Developer", imgPath: "/images/logos/python.svg" },
+  { name: "Backend Developer", imgPath: "/images/logos/node.png" },
+  { name: "Interactive Developer", imgPath: "/images/logos/three.png" },
+  { name: "Project Manager", imgPath: "/images/logos/git.svg" },
 ];
 
 const techStackIcons = [
@@ -155,7 +118,7 @@ const expCards = [
     imgPath: "/images/exp1.png",
     logoPath: "/images/engineer.png",
     title: "IT Administrator",
-	company: "Electra Surveying Engineering Services, Dubai, UAE",
+    company: "Electra Surveying Engineering Services, Dubai, UAE",
     date: "July 2024 - Present",
     responsibilities: [
       "Managed day-to-day IT infrastructure including workstations, printers, and network devices across office and field operations.",
@@ -168,7 +131,8 @@ const expCards = [
     imgPath: "/images/exp2.png",
     logoPath: "/images/screen.png",
     title: "Junior IT Technician",
-	company: "ISRO Propulsion Complex (IPRC), Mahendragiri",
+    company: `PGM Electro Private Limited, Nagercoil
+Working Location: ISRO Propulsion Complex (IPRC), Mahendragiri`,
     date: "January 2022 - June 2024",
     responsibilities: [
       "Performed maintenance, troubleshooting, and repair of computer systems and network equipment.",
@@ -181,116 +145,97 @@ const expCards = [
     imgPath: "/images/exp3.png",
     logoPath: "/images/logo3.png",
     title: "Software Development & Systems Engineering Studies",
-	company: "ICT Computer Education, Nagercoil & Greens Technologies, Chennai",
+    company: "ICT Computer Education, Nagercoil & Greens Technologies, Chennai",
     date: "July 2020 - December 2021",
     responsibilities: [
       "Studied multi-language programming fundamentals including C, C++, Java, Python, and Swift programming.",
       "Learned web development concepts covering HTML, CSS, React JS, and modern web designing principles.",
       "Gained academic exposure to mobile application development using Android Studio and iOS Swift environments.",
-	  "Understood backend development basics including PHP programming and server-side scripting concepts.",
-	  "Studied database management fundamentals and administrative operations using phpMyAdmin.",
-	  "Learned web hosting and server configuration concepts involving Apache and Nginx environments.",
-	  "Practiced application development workflows using Microsoft Visual Studio IDE tools.",
-	  "Developed foundational knowledge in debugging, performance optimization, and software testing practices.",
-	  "Gained theoretical and lab-based understanding of full-stack architecture including frontend, backend, database, and hosting layers.",
+      "Understood backend development basics including PHP programming and server-side scripting concepts.",
+      "Studied database management fundamentals and administrative operations using phpMyAdmin.",
+      "Learned web hosting and server configuration concepts involving Apache and Nginx environments.",
+      "Practiced application development workflows using Microsoft Visual Studio IDE tools.",
+      "Developed foundational knowledge in debugging, performance optimization, and software testing practices.",
+      "Gained theoretical and lab-based understanding of full-stack architecture including frontend, backend, database, and hosting layers.",
     ],
   },
 ];
 
 const expLogos = [
-  {
-    name: "engineer",
-    imgPath: "/images/engineer.png",
-  },
-  {
-    name: "logo2",
-    imgPath: "/images/logo2.png",
-  },
-  {
-    name: "logo3",
-    imgPath: "/images/logo3.png",
-  },
+  { name: "engineer", imgPath: "/images/engineer.png" },
+  { name: "logo2", imgPath: "/images/logo2.png" },
+  { name: "logo3", imgPath: "/images/logo3.png" },
 ];
 
 const testimonials = [
   {
     name: "Ms. Ljubica Bogdanovska",
-	role: "General Manager",
+    role: "General Manager",
     mentions: "Electra Surveying Engineering Services, Dubai",
-    review:
-       "Aswin consistently ensures our IT infrastructure runs smoothly and securely. From workstation deployments to network management, his proactive approach minimizes downtime and keeps our operations efficient. His technical expertise and reliability make him a valuable asset to our organization.",    
-	imgPath: "/images/client1.png",
+    review: "Aswin consistently ensures our IT infrastructure runs smoothly and securely. From workstation deployments to network management, his proactive approach minimizes downtime and keeps our operations efficient. His technical expertise and reliability make him a valuable asset to our organization.",
+    imgPath: "/images/client1.png",
   },
   {
     name: "Mr. Bervin",
-	role: "Graphic Designer",
+    role: "Graphic Designer",
     mentions: "Sri Saastha Designs, Nagercoil",
-    review:
-      "I've known Aswin for several years, and one thing that always stands out is his dedication to learning and improving. Whether it's networking, system administration, or new technologies, he approaches every challenge with determination and a strong desire to find the best solution.",
+    review: "I've known Aswin for several years, and one thing that always stands out is his dedication to learning and improving. Whether it's networking, system administration, or new technologies, he approaches every challenge with determination and a strong desire to find the best solution.",
     imgPath: "/images/client4.png",
   },
   {
     name: "Mr. Ranjith",
-	role: "Site Supervisor",
+    role: "Site Supervisor",
     mentions: "Strong Steels Lifts Maint.Co.L.L.C, Sharjah",
-    review:
-      "Aswin has always been the person I turn to for technical advice. Whether it's networking, system troubleshooting, or software recommendations, he approaches every problem with confidence and finds practical solutions. His knowledge and willingness to help make him stand out.",
+    review: "Aswin has always been the person I turn to for technical advice. Whether it's networking, system troubleshooting, or software recommendations, he approaches every problem with confidence and finds practical solutions. His knowledge and willingness to help make him stand out.",
     imgPath: "/images/client7.png",
   },
-    {
+  {
     name: "Mr. Anas Adnan Muhammad",
-	role: "Cheif Executive Officer",
+    role: "Cheif Executive Officer",
     mentions: "Electra Surveying Engineering Services, Dubai",
-    review:
-      "Aswin consistently delivers reliable IT solutions that improve operational efficiency. From software deployment and asset management to troubleshooting critical issues, he approaches every task with professionalism and attention to detail. His technical knowledge and problem-solving abilities make him an exceptional IT Administrator.",
+    review: "Aswin consistently delivers reliable IT solutions that improve operational efficiency. From software deployment and asset management to troubleshooting critical issues, he approaches every task with professionalism and attention to detail. His technical knowledge and problem-solving abilities make him an exceptional IT Administrator.",
     imgPath: "/images/client2.png",
   },
   {
     name: "Mr. Akilan",
-	role: "Site Coordinator/Manager",
+    role: "Site Coordinator/Manager",
     mentions: "PGM Electro Private Limited, Nagercoil",
-    review:
-      "Aswin is someone people naturally rely on when they face technical problems. He is patient, knowledgeable, and always willing to help others understand complex concepts. His passion for technology is reflected in everything he does.",
+    review: "Aswin is someone people naturally rely on when they face technical problems. He is patient, knowledgeable, and always willing to help others understand complex concepts. His passion for technology is reflected in everything he does.",
     imgPath: "/images/client5.png",
   },
   {
     name: "Mr. Aravinth",
-	role: "Product Manager",
+    role: "Product Manager",
     mentions: "HDB Financial Services, Nagercoil",
-    review:
-      "Aswin combines technical knowledge with a practical approach to solving real-world challenges. He is always eager to learn, adapt, and improve. His professionalism and positive attitude make him an excellent person to work with.",
+    review: "Aswin combines technical knowledge with a practical approach to solving real-world challenges. He is always eager to learn, adapt, and improve. His professionalism and positive attitude make him an excellent person to work with.",
     imgPath: "/images/client8.png",
   },
-    {
+  {
     name: "Mr. Sooraj Arnayil",
-	role: "Marine Geophysical Manager",
+    role: "Marine Geophysical Manager",
     mentions: "Electra Surveying Engineering Services, Dubai",
-    review:
-      "Working with Aswin has been a great experience. He successfully supports multiple departments while ensuring systems remain secure, organized, and up to date. His ability to manage complex IT requirements while providing excellent user support has contributed significantly to our project's success.",
+    review: "Working with Aswin has been a great experience. He successfully supports multiple departments while ensuring systems remain secure, organized, and up to date. His ability to manage complex IT requirements while providing excellent user support has contributed significantly to our project's success.",
     imgPath: "/images/client3.png",
   },
   {
     name: "Mr. Ajay",
-	role: "Founder",
+    role: "Founder",
     mentions: "Vaishu Costume Works & Design",
-    review:
-      "What I admire most about Aswin is his consistency and work ethic. He is highly organized, dependable, and always focused on achieving results. Whether managing IT infrastructure or working on personal projects, he gives every task his full attention and commitment.",
+    review: "What I admire most about Aswin is his consistency and work ethic. He is highly organized, dependable, and always focused on achieving results. Whether managing IT infrastructure or working on personal projects, he gives every task his full attention and commitment.",
     imgPath: "/images/client6.png",
   },
-    {
+  {
     name: "Mr. Akash",
-	role: "Central Industrial Security Force",
+    role: "Central Industrial Security Force",
     mentions: "Central Government of India",
-    review:
-      "Aswin is one of the most dependable people I know. He approaches challenges methodically and never gives up until he finds the right solution. His passion for technology, combined with his strong work ethic, has helped him build an impressive career in IT administration.",
+    review: "Aswin is one of the most dependable people I know. He approaches challenges methodically and never gives up until he finds the right solution. His passion for technology, combined with his strong work ethic, has helped him build an impressive career in IT administration.",
     imgPath: "/images/client9.png",
   },
-      {
+  {
     name: "Mr. Ajin",
-	role: "Advocate",
+    role: "Advocate",
     mentions: "Bar Council Of Tamilnadu",
-    review:
-      "Aswin is a dependable IT professional with excellent technical knowledge and a strong work ethic. He approaches every challenge with confidence and professionalism. His commitment to quality and continuous learning makes him a valuable asset to any team.",
+    review: "Aswin is a dependable IT professional with excellent technical knowledge and a strong work ethic. He approaches every challenge with confidence and professionalism. His commitment to quality and continuous learning makes him a valuable asset to any team.",
     imgPath: "/images/client10.png",
   },
 ];

@@ -123,7 +123,7 @@ const Experience = () => {
                       <div>
                         <h1 className="font-semibold text-3xl">{card.title}</h1>
                         {card.company && (
-                          <p className="text-[#839CB5] italic mt-2">
+                          <p className="text-[#839CB5] italic mt-2 whitespace-pre-line">
                             {card.company}
                           </p>
                         )}
